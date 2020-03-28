@@ -47,5 +47,13 @@ class Student
     new_student.grade = row[2]
     new_student
   end
+  def self.find_by_name(name)
+  sql = <<-SQL
+        SELECT * from students WHERE name=?
+        SQL
+  rows = DB[:conn].execute(sql, name)
+  student = Student.new_from_db(rows[0])
+  return student
+end
  
 end
